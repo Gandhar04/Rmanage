@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
-const randonIndex = Math.floor(Math.random() * DUMMY_USERS.length)
+// const randonIndex = Math.floor(Math.random() * DUMMY_USERS.length)
 
 @Component({
   selector: 'app-user',
@@ -10,13 +10,22 @@ const randonIndex = Math.floor(Math.random() * DUMMY_USERS.length)
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[randonIndex];
+  @Input({required: true}) avatar!: string
+  @Input({required: true}) id!: string
+  @Input({required: true}) name!: string;
+  @Output() select =  new EventEmitter();
+  // selectedUser = DUMMY_USERS[randonIndex];
   get imagePath() {
-    return 'assets/users/' + this.selectedUser.avatar; // Fixed path
+    return 'assets/users/' + this.avatar; // Fixed path
   }
-  onSelecUser() {
-    const randonIndex = Math.floor(Math.random() * DUMMY_USERS.length)
-    this.selectedUser = DUMMY_USERS[randonIndex];
-
+  onSelectUser() {
+    this.select.emit({
+      id: this.id,
+      name: this.name,
+      avatar: this.avatar
+    });
+    // console.log('User selected:', this.selectedUser);  
+  
   }
+  
 }
