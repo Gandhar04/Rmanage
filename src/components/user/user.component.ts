@@ -1,13 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output,  } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
 // const randonIndex = Math.floor(Math.random() * DUMMY_USERS.length)
-
-interface User {
-  id: string;
-  name: string;
-  avatar: string;
-}
-
+import { User } from './user.model';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -18,6 +12,7 @@ interface User {
 export class UserComponent {
   @Input({required: true}) user!: User
   @Output() select =  new EventEmitter();
+  @Input( {required: true}) selected!:boolean;
   // selectedUser = DUMMY_USERS[randonIndex];
   get imagePath() {
     return 'assets/users/' + this.user.avatar; // Fixed path
@@ -29,6 +24,8 @@ export class UserComponent {
       avatar: this.user.avatar
     });
     // console.log('User selected:', this.selectedUser);  
+    console.log(this.selected);
+    
   
   }
   

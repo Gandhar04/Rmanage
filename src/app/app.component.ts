@@ -17,9 +17,15 @@ export class AppComponent {
   title = 'rmanage';
   selectedUserName: { id: string, name: string, avatar: string } | null = null;
   users = DUMMY_USERS;
+  selectedUserId? : string;
   
-  onSelectUser(id: { id: string, name: string, avatar: string }) {
-    console.log(id);
-    this.selectedUserName = id;
+  onSelectUser(user: { id: string, name: string, avatar: string }) {
+    console.log(user);
+    this.selectedUserName = user;
+    this.selectedUserId = user.id; // <-- Add this line
+  }
+
+  get selectedUser() {
+    return this.users.find(user => user.id === this.selectedUserId);
   }
 }

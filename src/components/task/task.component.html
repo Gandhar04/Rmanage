@@ -1,10 +1,10 @@
 <article>
     <h2>
-        TASK TITILE
+        {{task.title}}
     </h2>
-    <TIme>TIME</TIme>
-    <P>SUMMARY</P>
+    <TIme>{{task.dueDate}}</TIme>
+    <P>{{task.summary}}</P>
     <P class="actions">
-        <button (click)="onComplete">Complete</button>
+        <button (click)="onRemoveTask()">Complete</button>
     </P>
 </article>
