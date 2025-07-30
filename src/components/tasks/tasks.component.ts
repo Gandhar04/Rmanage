@@ -1,16 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
+import { NewTaskComponent } from "./new-task/new-task.component";
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss'
 })
 export class TasksComponent {
   @Input() name!: string;
   @Input() userIds!: string;
+  showAddtaskModal: boolean = false;
   tasks = [
     {
       id: 't1',
@@ -46,5 +48,24 @@ export class TasksComponent {
   }
   removeTask(id: string) {
     this.tasks = this.tasks.filter(task => task.id !== id);
+  }
+
+  onAddTask() {
+    this.showAddtaskModal = true;
+  }
+
+  closeDialog() {
+    this.showAddtaskModal = false;
+  }
+
+  addTask(taskData: { title: string, summary: string, dueDate: string}) {
+    this.tasks.push({
+      id: 't' + (this.tasks.length + 1).toString(),
+      userId: this.userIds,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.dueDate
+    })
+
   }
 }
